@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import CurrentWeather from "./CurrentWeather";
 
 const API_KEY = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
 
@@ -26,40 +27,16 @@ const App = () => {
   }
 
   return (
-    <div className="w-full h-screen bg-sunrise-img bg-center text-center bg-cover bg-no-repeat text-white">
+    <div className="w-full h-screen bg-sunrise-img bg-center bg-cover bg-no-repeat text-white">
       <div className="search">
-        <input className="text-neutral-900" 
+        <input className="text-neutral-200 rounded-full bg-stone-900/50 py-1 px-2 focus:outline-none focus:ring focus:ring-stone-400" 
           type="text" 
           value={location} 
           onChange={event => setLocation(event.target.value)} 
           onKeyUp={searchLocation} 
           placeholder="Enter location"/>
       </div>
-      <div className="container">
-        <div className="top">
-          <div className="location">
-            {currentData.name ? <p className="text-2xl font-bold">{currentData.name}</p> : null}
-            
-          </div>
-          <div className="temp">
-            {currentData.main ? <h1 className="text-8xl">{Math.round(currentData.main.temp)}°C</h1> : null}
-          </div>
-          <div className="description">
-            {currentData.weather ? <p className="text-2xl font-bold">{currentData.weather[0].main}</p> : null }
-          </div>
-        </div>
-        <div className="bottom">
-          <div className="feels">
-            {currentData.main ? <p className="text-2xl font-bold">Feels like: {Math.round(currentData.main.feels_like)} °C</p> : null}
-          </div>
-          <div className="humidity">
-            {currentData.main ? <p className="text-2xl font-bold">Humidity: {Math.round(currentData.main.humidity)} %</p> : null}
-          </div>
-          <div className="wind">
-            {currentData.wind ? <p className="text-2xl font-bold">Windspeed: {Math.round(currentData.wind.speed * 3.6)} km/h</p> : null }
-          </div>
-        </div>
-      </div>
+      <CurrentWeather currentData={currentData}/>
     </div>
   );
 }
