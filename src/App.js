@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 import CurrentWeather from "./CurrentWeather";
+import DailyWeather from "./DailyWeather";
 import HourlyWeather from "./HourlyWeather";
 
 const API_KEY = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
@@ -12,10 +13,10 @@ const App = () => {
   const [allData, setAllData] = useState({})
   const [location, setLocation] = useState('')
 
-    useEffect(() => {
-    const storedLocation = JSON.parse(localStorage.getItem("previousLocation"))
-    if (storedLocation) setLocation(storedLocation)
-  }, [])
+  //   useEffect(() => {
+  //   const storedLocation = JSON.parse(localStorage.getItem("previousLocation"))
+  //   if (storedLocation) setLocation(storedLocation)
+  // }, [])
 
   const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}`
 
@@ -30,13 +31,13 @@ const App = () => {
           console.log(data.data);
         })
         setLocation('')
-        localStorage.setItem("previousLocation", JSON.stringify(location))
+        // localStorage.setItem("previousLocation", JSON.stringify(location))
       })
     }
   }
 
   return (
-    <div className="w-full h-screen bg-sunrise-img bg-center bg-cover bg-no-repeat text-white">
+    <div className="w-full min-h-screen bg-sunrise-img bg-fixed bg-center bg-cover bg-no-repeat text-white">
       <NavBar />
       <div className="my-4 text-center">
         <input className="text-neutral-200 rounded-full bg-stone-900/50 py-2 px-3 focus:outline-none focus:ring focus:ring-stone-400" 
@@ -46,7 +47,11 @@ const App = () => {
           onKeyUp={searchLocation} 
           placeholder="Enter location"/>
       </div>
-      <CurrentWeather currentData={currentData}/>
+      <Routes>
+        <Route path="/" element={ <CurrentWeather currentData={currentData}/> } />
+        <Route path="/hourly" element={ <HourlyWeather allData={allData}/> } />      
+        <Route path="/daily" element={ <DailyWeather dailyData={allData.daily}/> } />      
+      </Routes>
     </div>
   );
 }
