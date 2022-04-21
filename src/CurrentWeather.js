@@ -6,10 +6,10 @@ const CurrentWeather = ({ currentData }) => {
 			<div>
 				<div className="top m-2 grid grid-rows-auto place-items-center gap-4">
 					<div className="location mt-4">
-						<p className="text-3xl sm:text-4xl font-semibold"> { currentData.name } </p>
+						<p className="text-3xl text-center sm:text-4xl font-semibold"> { currentData.name }, {currentData.sys.country} </p>
 					</div>
 					<div className="temp">
-						<h1 className="text-8xl sm:text-9xl"> { Math.round(currentData.main.temp) } °C </h1>
+						<h1 className="text-8xl sm:text-9xl px-8 py-1 rounded-xl bg-stone-500/25"> { Math.round(currentData.main.temp) } °C </h1>
 					</div>
 					<div className="description italic">
 						<p className="text-2xl sm:text-3xl font-semibold"> { currentData.weather[0].main } </p>
