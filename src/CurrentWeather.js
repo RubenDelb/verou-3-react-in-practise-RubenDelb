@@ -3,27 +3,30 @@ import React from 'react'
 const CurrentWeather = ({ currentData }) => {
 	if(currentData.name) {
 		return (
-      <div className="flex flex-col justify-between">
-        <div className="top">
-					<div className="location">
-						<p className="text-2xl font-bold"> { currentData.name } </p>
+			<div>
+				<div className="top m-2 grid grid-rows-auto place-items-center gap-4">
+					<div className="location mt-4">
+						<p className="text-3xl sm:text-4xl font-semibold"> { currentData.name } </p>
 					</div>
 					<div className="temp">
-						<h1 className="text-8xl"> { Math.round(currentData.main.temp) } °C </h1>
+						<h1 className="text-8xl sm:text-9xl"> { Math.round(currentData.main.temp) } °C </h1>
 					</div>
 					<div className="description italic">
-						<p className="text-2xl font-bold inline"> { currentData.weather[0].main } </p>
+						<p className="text-2xl sm:text-3xl font-semibold"> { currentData.weather[0].main } </p>
 					</div>
-        </div>
-        <div className="bottom">
-					<div className="feels">
-						<p className="text-2xl font-bold">Feels like: {Math.round(currentData.main.feels_like)} °C</p>
+				</div>
+				<div className="bottom pb-4 absolute bottom-0 left-0 grid grid-cols-3 justify-items-center w-screen">
+					<div className="feels grid grid-rows-2">
+						<p className="text-md sm:text-2xl font-semibold">Feels like</p>
+						<p className="text-xl sm:text-4xl font-semibold">{Math.round(currentData.main.feels_like)} °C</p>
 					</div>
-					<div className="humidity">
-						<p className="text-2xl font-bold">Humidity: {Math.round(currentData.main.humidity)} %</p>
+					<div className="humidity grid grid-rows-2">
+						<p className="text-md sm:text-2xl font-semibold">Humidity</p>
+						<p className="text-xl sm:text-4xl font-semibold">{Math.round(currentData.main.humidity)} %</p>
 					</div>
-					<div className="wind">
-						<p className="text-2xl font-bold">Windspeed: {Math.round(currentData.wind.speed * 3.6)} km/h</p>
+					<div className="wind grid grid-rows-2">
+						<p className="text-md sm:text-2xl font-semibold">Windspeed</p>
+						<p className="text-xl sm:text-4xl font-semibold">{Math.round(currentData.wind.speed * 3.6)} km/h</p>
 					</div>
 				</div>
 			</div>
