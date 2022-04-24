@@ -37,7 +37,7 @@ const App = () => {
 
   return (
     <>
-      <div className={`overflow-hidden w-full min-h-screen bg-sunrise-img bg-scroll bg-cover bg-no-repeat text-white flex flex-col`}>
+      <div className={`overflow-hidden w-full ${currentData.weather ? 'min-h-fit' : 'min-h-screen'} bg-sunrise-img bg-scroll bg-cover bg-no-repeat text-white flex flex-col`}>
         <NavBar />
         <Routes>
           <Route path="/" element={ <CurrentWeather currentData={currentData} location={location} setLocation={setLocation} searchLocation={searchLocation}/> } />
