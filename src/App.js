@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import Footer from "./Components/Footer";
 import NavBar from "./Components/NavBar";
 import CurrentWeather from "./CurrentWeather";
 import DailyWeather from "./DailyWeather";
@@ -21,7 +22,6 @@ const App = () => {
   const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}`
 
   const searchLocation = (event) => {
-    if (event.key === 'Enter') {
       axios.get(API_URL).then(response => {
         setCurrentData(response.data)
         console.log(response.data);
@@ -33,26 +33,20 @@ const App = () => {
         setLocation('')
         // localStorage.setItem("previousLocation", JSON.stringify(location))
       })
-    }
   }
 
   return (
-    <div className="w-full min-h-screen bg-sunrise-img bg-fixed bg-center bg-cover bg-no-repeat text-white">
-      <NavBar />
-      <div className="my-4 text-center">
-        <input className="text-neutral-200 rounded-full bg-stone-900/50 py-2 px-3 focus:outline-none focus:ring focus:ring-stone-400" 
-          type="text" 
-          value={location} 
-          onChange={event => setLocation(event.target.value)} 
-          onKeyUp={searchLocation} 
-          placeholder="Enter location"/>
+    <>
+      <div className={`overflow-hidden w-full min-h-screen bg-sunrise-img bg-scroll bg-cover bg-no-repeat text-white flex flex-col`}>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={ <CurrentWeather currentData={currentData} location={location} setLocation={setLocation} searchLocation={searchLocation}/> } />
+          <Route path="/hourly" element={ <HourlyWeather allData={allData} currentData={currentData} location={location} setLocation={setLocation} searchLocation={searchLocation} /> } />      
+          <Route path="/daily" element={ <DailyWeather allData={allData} currentData={currentData} location={location} setLocation={setLocation} searchLocation={searchLocation} /> } />      
+        </Routes>
       </div>
-      <Routes>
-        <Route path="/" element={ <CurrentWeather currentData={currentData}/> } />
-        <Route path="/hourly" element={ <HourlyWeather allData={allData}/> } />      
-        <Route path="/daily" element={ <DailyWeather dailyData={allData.daily}/> } />      
-      </Routes>
-    </div>
+      <Footer />
+    </>
   );
 }
 
