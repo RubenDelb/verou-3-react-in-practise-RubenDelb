@@ -12,16 +12,11 @@ const API_KEY = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
 const App = () => {
   const [currentData, setCurrentData] = useState({})
   const [allData, setAllData] = useState({})
-  const [location, setLocation] = useState('')
-
-  //   useEffect(() => {
-  //   const storedLocation = JSON.parse(localStorage.getItem("previousLocation"))
-  //   if (storedLocation) setLocation(storedLocation)
-  // }, [])
+  const [location, setLocation] = useState('Brussels')
 
   const API_URL = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=${API_KEY}`
 
-  const searchLocation = (event) => {
+  const searchLocation = () => {
       axios.get(API_URL).then(response => {
         setCurrentData(response.data)
         console.log(response.data);
@@ -35,9 +30,13 @@ const App = () => {
       })
   }
 
+  useEffect(() => {
+    searchLocation();
+  }, [])
+
   return (
     <>
-      <div className={`overflow-hidden w-full ${currentData.weather ? 'min-h-fit' : 'min-h-screen'} bg-sunrise-img bg-scroll bg-cover bg-no-repeat text-white flex flex-col`}>
+      <div className={`overflow-hidden w-full ${currentData.weather ? 'min-h-fit' : 'min-h-screen'} bg-sunrise-img bg-fixed bg-[length:600px] sm:bg-cover bg-no-repeat text-white flex flex-col`}>
         <NavBar />
         <Routes>
           <Route path="/" element={ <CurrentWeather currentData={currentData} location={location} setLocation={setLocation} searchLocation={searchLocation}/> } />
