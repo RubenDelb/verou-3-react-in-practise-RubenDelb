@@ -1,11 +1,12 @@
 import { WiHumidity, WiRaindrop } from 'react-icons/wi'
 import windDirectionConvertor from './functions/windDirectionConvertor'
+import { v4 } from 'uuid';
 
 const HourlyWeather = ({ allData, currentData, location, setLocation, searchLocation }) => {
     console.log(currentData);
     if (allData.hourly) {
         return (
-            <div className={`bg-scroll max-h-full bg-cover bg-no-repeat ${currentData.weather[0].main === 'Clouds' ? 'bg-clouds-img' : currentData.weather[0].main === 'Clear' ? 'bg-clear-img' : currentData.weather[0].main === 'Rain' ? 'bg-rain-img' : currentData.weather[0].main == 'Thunderstorm' ? 'bg-overcast-img' : currentData.weather[0].main == 'Snow' ? 'bg-snow-img' : ''}`}>
+            <div className={`bg-fixed max-h-full bg-[length:600px] sm:bg-cover bg-no-repeat ${currentData.weather[0].main === 'Clouds' ? 'bg-clouds-img' : currentData.weather[0].main === 'Clear' ? 'bg-clear-img' : currentData.weather[0].main === 'Rain' ? 'bg-rain-img' : currentData.weather[0].main == 'Thunderstorm' ? 'bg-overcast-img' : currentData.weather[0].main == 'Snow' ? 'bg-snow-img' : ''}`}>
                 <div className="my-4 text-center">
 					<input className="text-neutral-200 rounded-full bg-stone-900/50 py-2 px-3 focus:outline-none focus:ring focus:ring-stone-400" 
 						type="text" 
@@ -23,7 +24,7 @@ const HourlyWeather = ({ allData, currentData, location, setLocation, searchLoca
                         let unixTime = (oneHour.dt + allData.timezone_offset - 3600);
                         let forecastHour = new Date(unixTime * 1000).getHours()
                         return (
-                            <div className='pb-6 sm:hover:scale-[1.02] transition duration-700'>
+                            <div key={v4()} className='pb-6 sm:hover:scale-[1.02] transition duration-700'>
                                 <p className='mx-12 mt-6 text-2xl w-fit bg-zinc-100/25 text-stone-900 font-semibold px-2 rounded-t'>{forecastHour} h</p>
                                 
                                 <div className='bg-zinc-100/50 text-stone-900 mx-6 rounded'>
