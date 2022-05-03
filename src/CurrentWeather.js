@@ -1,9 +1,10 @@
 import React from 'react'
 
+
 const CurrentWeather = ({ currentData, location, setLocation, searchLocation }) => {
 	if(currentData.name) {
 		return (
-			<div id='current' className={`bg-scroll flex flex-col h-[95vh] bg-cover bg-no-repeat ${currentData.weather[0].main === 'Clouds' ? 'bg-clouds-img' : currentData.weather[0].main === 'Clear' ? 'bg-clear-img' : currentData.weather[0].main === 'Rain' ? 'bg-rain-img' : currentData.weather[0].main == 'Thunderstorm' ? 'bg-overcast-img' : currentData.weather[0].main == 'Snow' ? 'bg-snow-img' : ''}`}>
+			<div id='current' className={`bg-fixed flex flex-col h-[90vh] bg-[length:600px] sm:bg-cover bg-no-repeat ${currentData.weather[0].main === 'Clouds' ? 'bg-clouds-img' : currentData.weather[0].main === 'Clear' ? 'bg-clear-img' : currentData.weather[0].main === 'Rain' ? 'bg-rain-img' : currentData.weather[0].main == 'Thunderstorm' ? 'bg-overcast-img' : currentData.weather[0].main == 'Snow' ? 'bg-snow-img' : ''}`}>
 				<div className="my-4 text-center">
 					<input className="text-neutral-200 rounded-full bg-stone-900/50 py-2 px-3 focus:outline-none focus:ring focus:ring-stone-400" 
 						type="text" 
